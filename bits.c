@@ -111,7 +111,7 @@ NOTES:
  */
 int absVal(int x)
 {
-    return 42;
+    return ((x >> 31)^x) - (x >> 31);
 }
 
 /*
@@ -124,7 +124,12 @@ int absVal(int x)
  */
 int addOK(int x, int y)
 {
-    return 42;
+    int z = x + y;
+    int a = (x >> 31);
+    int b = (y >> 31);
+    int c = (z >> 31);
+    
+    return !!(a^b) | !((a^b)^(a^c));
 }
 
 /*
@@ -137,7 +142,12 @@ int addOK(int x, int y)
  */
 int allEvenBits(int x)
 {
-    return 42;
+    x &= x >> 16;
+    x &= x >> 8;
+    x &= x >> 4;
+    x &= x >> 2;
+
+    return (x & 1);
 }
 
 /*

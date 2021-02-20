@@ -25,6 +25,10 @@
 #include <time.h>
 #include "btest.h"
 
+#define NONE "\033[m"
+#define GREEN "\033[0;32;32m"
+#define LIGHT_RED "\033[1;31m"
+
 /* Not declared in some stdlib.h files, so define here */
 float strtof(const char *nptr, char **endptr);
 
@@ -235,8 +239,8 @@ static int test_0_arg(func_t f, func_t ft, char *name)
 
     if (error && !grade)
         printf(
-            "ERROR: Test %s() failed...\n...Gives %d[0x%x]. Should be "
-            "%d[0x%x]\n",
+            LIGHT_RED "ERROR: Test %s() failed...\n"
+            NONE "...Gives %d[0x%x]. Should be %d[0x%x]\n",
             name, r, r, rt, rt);
 
     return error;
@@ -256,8 +260,8 @@ static int test_1_arg(func_t f, func_t ft, int arg1, char *name)
     error = (r != rt);
     if (error && !grade)
         printf(
-            "ERROR: Test %s(%d[0x%x]) failed...\n...Gives %d[0x%x]. Should be "
-            "%d[0x%x]\n",
+            LIGHT_RED "ERROR: Test %s(%d[0x%x]) failed...\n"
+            NONE "...Gives %d[0x%x]. Should be %d[0x%x]\n",
             name, arg1, arg1, r, r, rt, rt);
 
     return error;
@@ -276,8 +280,8 @@ static int test_2_arg(func_t f, func_t ft, int arg1, int arg2, char *name)
 
     if (error && !grade)
         printf(
-            "ERROR: Test %s(%d[0x%x],%d[0x%x]) failed...\n...Gives %d[0x%x]. "
-            "Should be %d[0x%x]\n",
+            LIGHT_RED "ERROR: Test %s(%d[0x%x],%d[0x%x]) failed...\n"
+            NONE "...Gives %d[0x%x]. Should be %d[0x%x]\n",
             name, arg1, arg1, arg2, arg2, r, r, rt, rt);
 
     return error;
@@ -301,8 +305,8 @@ static int test_3_arg(func_t f,
 
     if (error && !grade)
         printf(
-            "ERROR: Test %s(%d[0x%x],%d[0x%x],%d[0x%x]) failed...\n...Gives "
-            "%d[0x%x]. Should be %d[0x%x]\n",
+            LIGHT_RED "ERROR: Test %s(%d[0x%x],%d[0x%x],%d[0x%x]) failed...\n"
+            NONE "...Gives %d[0x%x]. Should be %d[0x%x]\n",
             name, arg1, arg1, arg2, arg2, arg3, arg3, r, r, rt, rt);
 
     return error;
@@ -441,7 +445,7 @@ static int run_tests()
     double points = 0.0;
     double max_points = 0.0;
 
-    printf("Score\tRating\tErrors\tFunction\n");
+    printf(GREEN "Score\tRating\tErrors\tFunction\n" NONE);
 
     for (i = 0; test_set[i].solution_funct; i++) {
         int terrors;
@@ -462,7 +466,7 @@ static int run_tests()
         }
     }
 
-    printf("Total points: %.0f/%.0f\n", points, max_points);
+    printf(GREEN "\nTotal points: %.0f/%.0f\n" NONE, points, max_points);
     return errors;
 }
 
